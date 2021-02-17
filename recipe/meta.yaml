@@ -11,8 +11,8 @@ source:
 
 build:
   number: 2
-  script: "PYO3_PYTHON={{ PYTHON }} {{ PYTHON }} -m pip install . -vv" # [not win]
-  script: "{{ PYTHON }} -m pip install . -vv" # [win]
+  script: "PYO3_PYTHON={{ PYTHON }} {{ PYTHON }} -m pip install . -vv"  # [not win]
+  script: "{{ PYTHON }} -m pip install . -vv"  # [win]
 
 requirements:
   build:
