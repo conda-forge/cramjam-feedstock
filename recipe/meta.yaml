@@ -11,11 +11,14 @@ source:
 
 build:
   number: 2
-  script: "PYO3_PYTHON={{ PYTHON }} {{ PYTHON }} -m pip install . -vv"  # [not win]
+  script: "{{ PYTHON }} -m pip install . -vv"  # [not win]
   script: "{{ PYTHON }} -m pip install . -vv"  # [win]
+  script: "make pypy-build-n-install"  # [python_impl == 'pypy']
+
 
 requirements:
   build:
+    - make
     - rust
     - maturin
     - toml
