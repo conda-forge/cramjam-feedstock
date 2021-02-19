@@ -11,19 +11,12 @@ source:
 
 build:
   number: 0
-  script: {{ PYTHON }} -m pip install . -vv
+  script: pip install --no-deps cramjam=={{ version }}
 
 requirements:
-  build:
-    - rust
-    - maturin
-    - toml
-    - {{ compiler('c') }}
   host:
     - python
     - pip
-    - maturin
-    - toml
   run:
     - python
 
