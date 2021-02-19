@@ -11,7 +11,9 @@ source:
 
 build:
   number: 0
-  script: pip install --no-deps cramjam=={{ version }}
+  script: |
+    pip install --upgrade pip
+    pip install --no-deps cramjam=={{ version }}
 
 requirements:
   host:
