@@ -1,6 +1,6 @@
 {% set name = "cramjam" %}
 {% set version = "2.0.0" %}
-
+{% set major_minor = version[:2] | replace('.', '') %}
 package:
   name: {{ name|lower }}
   version: {{ version }}
@@ -11,6 +11,10 @@ source:
 
 build:
   number: 0
+  script: pip install https://pypi.debian.net/cramjam/cramjam-{{ version }}-cp{{ major_minor  }}-cp{{ major_minor }}m-manylinux2010_x86_64.whl # [linux]
+  script: pip install https://pypi.debian.net/cramjam/cramjam-{{ version }}-cp{{ major_minor  }}-cp{{ major_minor }}m-macosx_10_7_{{ OSX_ARCH }}.whl # [osx]
+  script: pip install https://pypi.debian.net/cramjam/cramjam-{{ version }}-cp{{ major_minor  }}-none-win_amd64.whl # [win]
+
 
 requirements:
   host:
