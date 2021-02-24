@@ -9,7 +9,7 @@ source:
   sha256: 8218b29ed3833d5b83d17823f175f5e8c408b185bd3e5f4dde5d2b33047e840c
 
 build:
-  number: 1
+  number: 0
   script: pip install --no-deps https://pypi.debian.net/cramjam/cramjam-{{ version }}-cp36-abi3-manylinux2010_x86_64.whl  # [linux]
   script: pip install --no-deps https://pypi.debian.net/cramjam/cramjam-{{ version }}-cp36-abi3-macosx_10_7_{{ OSX_ARCH }}.whl  # [osx]
   script: pip install --no-deps https://pypi.debian.net/cramjam/cramjam-{{ version }}-cp36-abi3-win_amd64.whl  # [win]
