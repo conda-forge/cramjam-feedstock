@@ -1,21 +1,18 @@
 {% set name = "cramjam" %}
-{% set version = "2.0.1" %}
-{% set py_ver_split = PY_VER.split(".") %}
-{% set major_minor = py_ver_split[0] + py_ver_split[1] %}
+{% set version = "2.0.2" %}
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: e769cee0badd4f02b59777b86aa3bc1e308e84b2c069490a7048a72a9a1e5c1a
+  sha256: 8218b29ed3833d5b83d17823f175f5e8c408b185bd3e5f4dde5d2b33047e840c
 
 build:
   number: 0
-  {% set m_postfix = 'm' if major_minor in ('36', '37') else '' %}
-  script: pip install --no-deps https://pypi.debian.net/cramjam/cramjam-{{ version }}-cp{{ major_minor }}-cp{{ major_minor + m_postfix }}-manylinux2010_x86_64.whl  # [linux]
-  script: pip install --no-deps https://pypi.debian.net/cramjam/cramjam-{{ version }}-cp{{ major_minor }}-cp{{ major_minor + m_postfix }}-macosx_10_7_{{ OSX_ARCH }}.whl  # [osx]
-  script: pip install --no-deps https://pypi.debian.net/cramjam/cramjam-{{ version }}-cp{{ major_minor }}-none-win_amd64.whl  # [win]
+  script: pip install --no-deps https://pypi.debian.net/cramjam/cramjam-{{ version }}-cp36-abi3-manylinux2010_x86_64.whl  # [linux]
+  script: pip install --no-deps https://pypi.debian.net/cramjam/cramjam-{{ version }}-cp36-abi3-macosx_10_7_{{ OSX_ARCH }}.whl  # [osx]
+  script: pip install --no-deps https://pypi.debian.net/cramjam/cramjam-{{ version }}-cp36-abi3-win_amd64.whl  # [win]
 
 
 requirements:
