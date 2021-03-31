@@ -13,7 +13,7 @@ source:
 
 build:
   number: 0
-  script: { { PYTHON } } -m pip install . -vv
+  script: {{ PYTHON }} -m pip install . -vv
   {% set m_postfix = 'm' if major_minor in ('36', '37') else '' %}
   script: pip install --no-deps https://pypi.debian.net/cramjam/cramjam-{{ version }}-cp{{ major_minor }}-cp{{ major_minor + m_postfix }}-manylinux2010_x86_64.whl  # [linux]
   script: pip install --no-deps https://pypi.debian.net/cramjam/cramjam-{{ version }}-cp{{ major_minor }}-cp{{ major_minor + m_postfix }}-macosx_10_7_{{ OSX_ARCH }}.whl  # [osx]
