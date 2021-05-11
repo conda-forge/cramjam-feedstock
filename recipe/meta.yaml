@@ -16,7 +16,7 @@ build:
   script: {{ PYTHON }} -m pip install . -vv
   {% set m_postfix = 'm' if major_minor in ('36', '37') else '' %}
   script: pip install --no-deps https://pypi.debian.net/cramjam/cramjam-{{ version }}-cp{{ major_minor }}-cp{{ major_minor + m_postfix }}-manylinux2010_x86_64.whl  # [linux]
-  script: pip install --no-deps https://pypi.debian.net/cramjam/cramjam-{{ version }}-cp{{ major_minor }}-cp{{ major_minor + m_postfix }}-{{ 'macosx_10_7_x86_64' OSX_ARCH if OSX_ARCH != 'arm64' else 'macosx_10_9_universal2' }}.whl  # [osx]
+  script: pip install --no-deps https://pypi.debian.net/cramjam/cramjam-{{ version }}-cp{{ major_minor }}-cp{{ major_minor + m_postfix }}-{{ 'macosx_10_7_x86_64' if OSX_ARCH != 'arm64' else 'macosx_10_9_universal2' }}.whl  # [osx]
   script: pip install --no-deps https://pypi.debian.net/cramjam/cramjam-{{ version }}-cp{{ major_minor }}-none-win_amd64.whl  # [win]
 
 
