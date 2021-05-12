@@ -19,7 +19,7 @@ build:
   script: {{ PYTHON }} -m pip install --no-deps https://pypi.debian.net/cramjam/cramjam-{{ version }}-cp{{ major_minor }}-cp{{ major_minor + m_postfix }}-manylinux_2_24_ppc64le.whl  # [ppc64le]
   script: {{ PYTHON }} -m pip install --no-deps https://pypi.debian.net/cramjam/cramjam-{{ version }}-cp{{ major_minor }}-cp{{ major_minor + m_postfix }}-manylinux2014_aarch64.whl  # [aarch64]
   script: {{ PYTHON }} -m pip install --no-deps https://pypi.debian.net/cramjam/cramjam-{{ version }}-cp{{ major_minor }}-cp{{ major_minor + m_postfix }}-manylinux2014_armv7l.whl  # [armv7l]
-  script: {{ PYTHON }} -m pip install --no-deps https://pypi.debian.net/cramjam/cramjam-{{ version }}-cp{{ major_minor }}-cp{{ major_minor + m_postfix }}-manylinux2010_x86_64.whl  # [linux]
+  script: {{ PYTHON }} -m pip install --no-deps https://pypi.debian.net/cramjam/cramjam-{{ version }}-cp{{ major_minor }}-cp{{ major_minor + m_postfix }}-manylinux2010_x86_64.whl  # [linux64]
   script: {{ PYTHON }} -m pip install --no-deps https://pypi.debian.net/cramjam/cramjam-{{ version }}-cp{{ major_minor }}-cp{{ major_minor + m_postfix }}-{{ 'macosx_10_7_x86_64' if OSX_ARCH != 'arm64' else 'macosx_10_9_universal2' }}.whl  # [osx]
   script: {{ PYTHON }} -m pip install --no-deps https://pypi.debian.net/cramjam/cramjam-{{ version }}-cp{{ major_minor }}-none-win_amd64.whl  # [win]
 
