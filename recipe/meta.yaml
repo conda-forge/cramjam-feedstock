@@ -27,7 +27,7 @@ requirements:
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - maturin                                # [build_platform != target_platform]
     - toml                                   # [build_platform != target_platform]
-    - rust                                   # [build_platform != target_platform]
+    - {{ compiler('rust') }}
     - {{ compiler('c') }}                    # [unix]
     - {{ compiler('m2w64_c') }}              # [win]
   host:
@@ -35,7 +35,6 @@ requirements:
     - pip
     - maturin
     - toml
-    - rust
   run:
     - python
 
