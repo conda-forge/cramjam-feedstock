@@ -1,5 +1,5 @@
 {% set name = "cramjam" %}
-{% set version = "2.3.1" %}
+{% set version = "2.5.0" %}
 {% set py_ver_split = PY_VER.split(".") %}
 {% set major_minor = py_ver_split[ 0 ] + py_ver_split[ 1 ] %}
 
@@ -9,14 +9,14 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 6a9d137ad56b31ab127d33061a4552dd21aa43836c6874658cc7e73bda0b76e4
+  sha256: a92c0c2db4c6a3804eaffa253c7ca49f849e7a893a31c902a8123d7c36b2b487
 
 build:
-  number: 1
+  number: 0
   script:
     {% if build_platform != target_platform %}
     - export PYO3_CROSS_INCLUDE_DIR=$PREFIX/include
-    - export PYO3_CROSS_LIB_DIR=$SP_DIR/../
+    - export PYO3_CROSS_LIB_DIR=$PREFIX/lib/python$PY_VER
     - export PYO3_CROSS_PYTHON_VERSION=$PY_VER
     {% endif %}
     - {{ PYTHON }} -m pip install . -vv
