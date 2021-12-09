@@ -1,5 +1,5 @@
 channel_sources:
-- conda-forge,defaults
+- conda-forge
 channel_targets:
 - conda-forge main
 m2w64_c_compiler:
@@ -10,5 +10,7 @@ pin_run_as_build:
     max_pin: x.x
 python:
 - 3.8.* *_cpython
+rust_compiler:
+- rust
 target_platform:
 - win-64
