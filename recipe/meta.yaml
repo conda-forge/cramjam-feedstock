@@ -1,5 +1,5 @@
 {% set name = "cramjam" %}
-{% set version = "2.6.0" %}
+{% set version = "2.6.1" %}
 {% set py_ver_split = PY_VER.split(".") %}
 {% set major_minor = py_ver_split[ 0 ] + py_ver_split[ 1 ] %}
 
@@ -9,7 +9,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: e4e4755185a2f59721a769335fd492a953a91adc23b9c5bf1e143540d1f2d55c
+  sha256: ca8d757dbc12fbfefafc62b19e784a957ef07991edb2416d228c5b86b74fba0c
 
 build:
   number: 0
