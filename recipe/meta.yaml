@@ -12,7 +12,7 @@ source:
   sha256: a80ded273eb4448de5751d2a456521109875d5823dea222279f677df3c06485a
 
 build:
-  number: 0
+  number: 1
   script:
     {% if build_platform != target_platform %}
     - export PYO3_CROSS_INCLUDE_DIR=$PREFIX/include
