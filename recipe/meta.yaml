@@ -12,7 +12,7 @@ source:
   sha256: 6b1fa0a6ea8183831d04572597c182bd6cece62d583a36cde1e6a86e72ce2389
 
 build:
-  number: 0
+  number: 1
   script:
     {% if build_platform != target_platform %}
     - export PYO3_CROSS_INCLUDE_DIR=$PREFIX/include
@@ -29,7 +29,9 @@ requirements:
     - toml                                   # [build_platform != target_platform]
     - {{ compiler('rust') }}
     - {{ compiler('c') }}                    # [unix]
+    - {{ stdlib("c") }}                      # [unix]
     - {{ compiler('m2w64_c') }}              # [win]
+    - {{ stdlib("m2w64_c") }}                # [win]
   host:
     - python
     - pip
