@@ -21,6 +21,7 @@ requirements:
     - maturin                                # [build_platform != target_platform]
     - toml                                   # [build_platform != target_platform]
     - {{ compiler('rust') }}
+    - {{ stdlib('c') }}
     - {{ compiler('c') }}
   host:
     - python
