@@ -1,7 +1,5 @@
 {% set name = "cramjam" %}
 {% set version = "2.8.3" %}
-{% set py_ver_split = PY_VER.split(".") %}
-{% set major_minor = py_ver_split[ 0 ] + py_ver_split[ 1 ] %}
 
 package:
   name: {{ name|lower }}
@@ -12,13 +10,8 @@ source:
   sha256: 6b1fa0a6ea8183831d04572597c182bd6cece62d583a36cde1e6a86e72ce2389
 
 build:
-  number: 0
+  number: 1
   script:
-    {% if build_platform != target_platform %}
-    - export PYO3_CROSS_INCLUDE_DIR=$PREFIX/include
-    - export PYO3_CROSS_LIB_DIR=$PREFIX/lib/python$PY_VER
-    - export PYO3_CROSS_PYTHON_VERSION=$PY_VER
-    {% endif %}
     - {{ PYTHON }} -m pip install . -vv
 
 requirements:
@@ -28,8 +21,8 @@ requirements:
     - maturin                                # [build_platform != target_platform]
     - toml                                   # [build_platform != target_platform]
     - {{ compiler('rust') }}
-    - {{ compiler('c') }}                    # [unix]
-    - {{ compiler('m2w64_c') }}              # [win]
+    - {{ stdlib('c') }}
+    - {{ compiler('c') }}
   host:
     - python
     - pip
