@@ -23,6 +23,7 @@ requirements:
     - {{ compiler('rust') }}
     - {{ stdlib('c') }}
     - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
     - cmake
   host:
     - python
