@@ -25,7 +25,6 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - make
-    - ninja
     - cmake
   host:
     - python
