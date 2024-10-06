@@ -1,5 +1,21 @@
 {% set name = "cramjam" %}
-{% set version = "2.8.4rc3" %}
+{% set version = "2.8.4" %}
+{% set py_ver_split = PY_VER.split(".") %}
+{% set major_minor = py_ver_split[ 0 ] + py_ver_split[ 1 ] %}
+
+{% set target = "linux" %}      # [linux]
+{% set target = "win" %}        # [win]
+{% set target = "osx" %}        # [osx]
+
+{% set arch = "ppc64le" %}      # [ppc64le]
+{% set arch = "arm64" %}        # [arm64]
+{% set arch = "x86_64" %}       # [x86_64]
+{% set arch = "s390x" %}        # [s390x]
+{% set arch = "win32" %}        # [win32]
+{% set arch = "amd64" %}        # [win64]
+{% set arch = "aarch64" %}      # [aarch64]
+{% set arch = "i686" %}         # [i686]
+{% set arch = "armv7l" %}       # [armv7l]
 
 package:
   name: {{ name|lower }}
@@ -7,25 +23,27 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: de59cbb04852bee6e1fc5cd9faace43e7f86ac7d5222a297e1a5c3566bffbc14
+  sha256: ad8bec85b46283330214f4367805e6f56e04ce25a030a2c6a4b127437d006fcf
 
 build:
-  number: 2
-  script:
-    - {{ PYTHON }} -m pip install . -vv
+  skip: true
+  number: 0
+  script: |
+    export SHELL=bash
+    curl -O https://pypi.org/pypi/cramjam/json
+    url=$(cat json | jq -r '.releases."{{ version }}" | .[] | select(.python_version == "cp{{ major_minor }}") | select(.filename | contains("{{ target }}") and contains("{{ arch }}") ) | select(.filename | contains("musllinux") | not) | .url')
+    fln=$(cat json | jq -r '.releases."{{ version }}" | .[] | select(.python_version == "cp{{ major_minor }}") | select(.filename | contains("{{ target }}") and contains("{{ arch }}") ) | select(.filename | contains("musllinux") | not) | .filename')
+    echo "Fetching wheel at $url"
+    curl -o "$fln" "$url"
+    echo "Installing wheel"
+    {{ PYTHON }} -m pip install --pre --no-deps --no-index cramjam --find-links . -vv
 
 requirements:
   build:
     - python                                 # [build_platform != target_platform]
-    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - maturin                                # [build_platform != target_platform]
-    - toml                                   # [build_platform != target_platform]
-    - {{ compiler('rust') }}
-    - {{ stdlib('c') }}
-    - {{ compiler('c') }}
-    - {{ compiler('cxx') }}
-    - make
-    - cmake
+    - pip
+    - curl
   host:
     - python
     - pip
