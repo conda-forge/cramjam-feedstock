@@ -26,29 +26,24 @@ source:
   sha256: ad8bec85b46283330214f4367805e6f56e04ce25a030a2c6a4b127437d006fcf
 
 build:
-  skip: true
   number: 0
   script: |
-    export SHELL=bash
     curl -O https://pypi.org/pypi/cramjam/json
     url=$(cat json | jq -r '.releases."{{ version }}" | .[] | select(.python_version == "cp{{ major_minor }}") | select(.filename | contains("{{ target }}") and contains("{{ arch }}") ) | select(.filename | contains("musllinux") | not) | .url')
     fln=$(cat json | jq -r '.releases."{{ version }}" | .[] | select(.python_version == "cp{{ major_minor }}") | select(.filename | contains("{{ target }}") and contains("{{ arch }}") ) | select(.filename | contains("musllinux") | not) | .filename')
     echo "Fetching wheel at $url"
-    curl -o "$fln" "$url"
+    curl -o "$fln" "$url"        
     echo "Installing wheel"
     {{ PYTHON }} -m pip install --pre --no-deps --no-index cramjam --find-links . -vv
 
 requirements:
   build:
-    - python                                 # [build_platform != target_platform]
-    - maturin                                # [build_platform != target_platform]
+    - python
     - pip
     - curl
   host:
     - python
     - pip
-    - maturin
-    - toml
   run:
     - python
 
