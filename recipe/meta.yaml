@@ -34,7 +34,7 @@ build:
     ARCH: {{ arch }}
     TARGET: {{ target }}
   script: |
-    bash ./recipe/install.sh
+    bash ./install.sh
 
 requirements:
   build:
