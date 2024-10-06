@@ -27,22 +27,25 @@ source:
 
 build:
   number: 0
+  script_env:
+    VERSION: {{ version }}
+    PYTHON: {{ PYTHON }}
+    MAJOR_MINOR: {{ major_minor }}
+    ARCH: {{ arch }}
+    TARGET: {{ target }}
   script: |
-    curl -O https://pypi.org/pypi/cramjam/json
-    url=$(cat json | jq -r '.releases."{{ version }}" | .[] | select(.python_version == "cp{{ major_minor }}") | select(.filename | contains("{{ target }}") and contains("{{ arch }}") ) | select(.filename | contains("musllinux") | not) | .url')
-    fln=$(cat json | jq -r '.releases."{{ version }}" | .[] | select(.python_version == "cp{{ major_minor }}") | select(.filename | contains("{{ target }}") and contains("{{ arch }}") ) | select(.filename | contains("musllinux") | not) | .filename')
-    echo "Fetching wheel at $url"
-    curl -o "$fln" "$url"        
-    echo "Installing wheel"
-    {{ PYTHON }} -m pip install --pre --no-deps --no-index cramjam --find-links . -vv
+    bash build.sh
 
 requirements:
   build:
     - python
+    - m2-bash  # [win]
+    - maturin
     - pip
     - curl
   host:
     - python
+    - maturin
     - pip
   run:
     - python
@@ -57,13 +60,7 @@ about:
   license_family: MIT
   license_file: LICENSE
   summary: python bindings to rust-implemented compression
-  # The remaining entries in this section are optional, but recommended.
-  description: |
-    Extremely thin Python bindings to de/compression algorithms in Rust. 
-    Allows for using algorithms such as Snappy, without any system dependencies.
-    This is handy when being used in environments like AWS Lambda, 
-    where installing packages like python-snappy becomes difficult because of 
-    system level dependencies.
+  description: Extremely thin Python bindings to de/compression algorithms in Rust. 
   doc_url: https://docs.rs/cramjam
 
 extra:
