@@ -28,9 +28,18 @@ source:
 build:
   number: 0
   script: |
-    url=$(curl https://pypi.org/pypi/cramjam/json | jq -r '.releases."{{ version }}" | .[] | select(.python_version == "cp{{ major_minor }}") | select(.filename | contains("{{ target }}") and contains("{{ arch }}") ) | select(.filename | contains("musllinux") | not) | .url')
+    url=$(curl https://pypi.org/pypi/cramjam/json | jq -r '.releases."{{ version }}" | .[] | select(.python_version == "cp{{ major_minor }}") | select(.filename | contains("{{ target }}") and contains("{{ arch }}") ) | select(.filename | contains("musllinux") | not) | .url')  # [not win]
     {{ PYTHON }} -m pip install --pre --no-deps --no-index $url -vv --target $SP_DIR  # [not win]
-    %PYTHON% -m pip install --pre --no-deps --no-index %url% -vv --target %SP_DIR%    # [win]
+
+    setlocal  # [win]
+    curl https://pypi.org/pypi/cramjam/json | jq -r ".releases.\"{{ version }}\" | .[] | select(.python_version == \"cp{{ major_minor }}\") | select(.filename | contains(\"{{ target }}\") and contains(\"{{ arch }}\")) | select(.filename | contains(\"musllinux\") | not) | .url" > temp_url.txt  # [win]
+    set /p url=<temp_url.txt  # [win]
+    echo URL: %url%  # [win]
+    del temp_url.txt  # [win]
+    %PYTHON% -m pip install --pre --no-deps --no-index %url% -vv --target %SP_DIR%  # [win]
+
+endlocal
+
 
 requirements:
   build:
