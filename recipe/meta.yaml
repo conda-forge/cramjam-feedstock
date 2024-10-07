@@ -37,8 +37,7 @@ build:
     echo URL: %url%  # [win]
     del temp_url.txt  # [win]
     %PYTHON% -m pip install --pre --no-deps --no-index %url% -vv --target %SP_DIR%  # [win]
-
-endlocal
+    endlocal  # [win]
 
 
 requirements:
