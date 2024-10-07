@@ -27,6 +27,8 @@ source:
 
 build:
   number: 0
+  script_env:
+    - target_platform
   script: |
     url=$(curl https://pypi.org/pypi/cramjam/json | jq -r '.releases."{{ version }}" | .[] | select(.python_version == "cp{{ major_minor }}") | select(.filename | contains("{{ target }}") and contains("{{ arch }}") ) | select(.filename | contains("musllinux") | not) | .url')  # [not win]
     {{ PYTHON }} -m pip install --pre --no-deps --no-index $url -vv --target $SP_DIR  # [not win]
@@ -46,6 +48,7 @@ requirements:
     - maturin
     - pip
     - curl
+    - jq
   host:
     - python
     - maturin
