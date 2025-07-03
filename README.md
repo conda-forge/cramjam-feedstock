@@ -17,7 +17,6 @@ This is handy when being used in environments like AWS Lambda,
 where installing packages like python-snappy becomes difficult because of
 system level dependencies.
 
-
 Current build status
 ====================
 
