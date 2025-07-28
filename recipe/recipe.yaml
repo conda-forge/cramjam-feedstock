@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   name: cramjam
-  version: 2.10.0
+  version: "2.11.0"
 
 package:
   name: ${{ name|lower }}
@@ -10,10 +10,10 @@ package:
 
 source:
   url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/${{ name }}-${{ version }}.tar.gz
-  sha256: e821dd487384ae8004e977c3b13135ad6665ccf8c9874e68441cad1146e66d8a
+  sha256: 5c82500ed91605c2d9781380b378397012e25127e89d64f460fea6aeac4389b4
 
 build:
-  number: 1
+  number: 0
   script:
     - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
     - ${{ PYTHON }} -m pip install . -vv
@@ -21,7 +21,7 @@ build:
 requirements:
   build:
     - if: build_platform != target_platform
-      then: 
+      then:
         - python
         - cross-python_${{ target_platform }}
         - maturin
@@ -50,7 +50,7 @@ tests:
 
 about:
   license: MIT
-  license_file: 
+  license_file:
     - LICENSE
     - THIRDPARTY.yml
   summary: python bindings to rust-implemented compression
