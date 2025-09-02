@@ -15,6 +15,10 @@ source:
 build:
   number: 1
   script:
+    # fix for upstream maturin issue
+    - if: build_platform != target_platform and unix and python is startingwith('3.14')
+      then:
+        - rm -f $PREFIX/lib/python3.14/build-details.json
     - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
     - ${{ PYTHON }} -m pip install . -vv
 
