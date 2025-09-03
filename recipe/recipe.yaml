@@ -13,8 +13,12 @@ source:
   sha256: 5c82500ed91605c2d9781380b378397012e25127e89d64f460fea6aeac4389b4
 
 build:
-  number: 0
+  number: 1
   script:
+    # fix for upstream maturin issue
+    - if: build_platform != target_platform and unix and python is startingwith('3.14')
+      then:
+        - rm -f $PREFIX/lib/python3.14/build-details.json
     - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
     - ${{ PYTHON }} -m pip install . -vv
 
