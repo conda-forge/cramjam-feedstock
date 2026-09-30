@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   name: cramjam
-  version: "2.11.0"
+  version: "2.13.0"
 
 package:
   name: ${{ name|lower }}
@@ -10,10 +10,10 @@ package:
 
 source:
   url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/${{ name }}-${{ version }}.tar.gz
-  sha256: 5c82500ed91605c2d9781380b378397012e25127e89d64f460fea6aeac4389b4
+  sha256: 3c8f332b59b6c43fac9b2710aa3eeecffa5a6aa258350e782f7aa5db76ec5fa6
 
 build:
-  number: 2
+  number: 0
   script:
     # fix for upstream maturin issue
     - if: build_platform != target_platform and unix and python is startingwith('3.14')
