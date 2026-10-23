@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   name: cramjam
-  version: "2.11.0"
+  version: "2.14.0"
 
 package:
   name: ${{ name|lower }}
@@ -10,15 +10,19 @@ package:
 
 source:
   url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/${{ name }}-${{ version }}.tar.gz
-  sha256: 5c82500ed91605c2d9781380b378397012e25127e89d64f460fea6aeac4389b4
+  sha256: 050095380dc01a7f3dc2b8bcd9de2cbf4a208a8aab32301c760ea3c280d641bd
 
 build:
-  number: 2
+  number: 0
   script:
     # fix for upstream maturin issue
     - if: build_platform != target_platform and unix and python is startingwith('3.14')
       then:
         - rm -f $PREFIX/lib/python3.14/build-details.json
+    # ppc64le: rust-lld can't resolve relocations in the C objects of the *-sys crates, so link with GNU ld
+    - if: target_platform == "linux-ppc64le"
+      then:
+        - export RUSTFLAGS="$RUSTFLAGS -C link-arg=-fuse-ld=bfd"
     - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
     - ${{ PYTHON }} -m pip install . -vv
 
