@@ -19,6 +19,10 @@ build:
     - if: build_platform != target_platform and unix and python is startingwith('3.14')
       then:
         - rm -f $PREFIX/lib/python3.14/build-details.json
+    # ppc64le: rust-lld can't resolve relocations in the C objects of the *-sys crates, so link with GNU ld
+    - if: target_platform == "linux-ppc64le"
+      then:
+        - export RUSTFLAGS="$RUSTFLAGS -C link-arg=-fuse-ld=bfd"
     - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
     - ${{ PYTHON }} -m pip install . -vv
 
