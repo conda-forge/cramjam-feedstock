@@ -13,7 +13,7 @@ source:
   sha256: 050095380dc01a7f3dc2b8bcd9de2cbf4a208a8aab32301c760ea3c280d641bd
 
 build:
-  number: 0
+  number: 1
   script:
     # fix for upstream maturin issue
     - if: build_platform != target_platform and unix and python is startingwith('3.14')
